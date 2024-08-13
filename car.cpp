@@ -2,7 +2,7 @@
 
 Car::Car() {};
 
-Car::Car(double X, double Y, double Rotation, double VelocityX = 0, double VelocityY = 0) : x(X), y(Y), rot(Rotation), velX(VelocityX), velY(VelocityY) {}
+Car::Car(double X, double Y, double Rotation, double Velocity) : x(X), y(Y), rot(Rotation), vel(Velocity) {}
 
 void Car::SetCars(vector<Car*>* others) 
 {
@@ -21,12 +21,29 @@ void Car::SetTrack(Track* map)
 
 void Car::Tick(double secs) 
 {
-	if (track) 
+	double drot = wheelRot * vel / 10 * secs;
+	rot += drot;
+	vel *= cos(drot);
+	double velsec = vel * secs;
+	x += cos(rot) * velsec;
+	y += sin(rot) * velsec;
+}
+
+void Car::Tick(double secs, double rev, double steer)
+{
+	double NextStep = 100; double sped = speed;
+	if (vel > 90 || vel < -90) 
 	{
-		
+		NextStep *= 2;
+		sped *= 0.25;
 	}
-	else 
+	if (vel > 190 || vel < -190) 
 	{
-		throw new exception("There is no track!");
+		NextStep *= 2;
+		sped *= 0.25;
 	}
+
+	vel += secs * (rev * (NextStep-abs(vel)) * sped - 5);
+	wheelRot += (steer*(0.7-abs(wheelRot)) - wheelRot*0.1) * secs;
+	Tick(secs);
 }

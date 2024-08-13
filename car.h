@@ -8,14 +8,17 @@ using namespace std;
 class Car : PhysicsObject
 {
 private:
-	double x = 0, y = 0, velX = 0, velY = 0, rot = 0;
+	double x = 0, y = 0, vel = 0, rot = 0, wheelRot = 0, speed = 10;
 
 	vector<Car*>* cars = nullptr;
-	Track* track;
+	Track* track = nullptr;
 
 public:
+	double GetPosX() { return x; };
+	double GetPosY() { return y; };
+
 	Car();
-	Car(double X, double Y, double Rotation, double VelocityX = 0, double VelocityY = 0);
+	Car(double X, double Y, double Rotation, double Velocity = 0);
 
 	void SetCars(vector<Car*>* others);
 	void SetTrack(Track* map);

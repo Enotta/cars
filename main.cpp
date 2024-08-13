@@ -2,25 +2,64 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "car.h"
 
 using namespace std;
 using namespace sf;
 
 int main() {
 	RenderWindow window(VideoMode(800, 800), "Cars");
-	window.setFramerateLimit(60);
-	SoundBuffer buffer;
-	Sound sound;
-	if (!buffer.loadFromFile("music.mp3")) return -1;
-	sound.setBuffer(buffer);
-	sound.play();
+	window.setFramerateLimit(144);
 	Event event;
 
+	double rev, steer;
 
-	while (window.isOpen()) {
-		while (window.pollEvent(event)) {
-			if (event.type == Event::Closed) window.close();
+	Car car;
+
+	CircleShape circle(5);
+
+	while (window.isOpen())
+	{
+		window.clear();
+
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case Event::Closed:
+				window.close();
+				break;
+			default:
+				break;
+			}
 		}
+
+		rev = 0;
+		steer = 0;
+
+		if (Keyboard::isKeyPressed(Keyboard::W))
+		{
+			rev += 1;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::S)) 
+		{
+			rev -= 1;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::D))
+		{
+			steer += 1;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::A))
+		{
+			steer -= 1;
+		}
+
+		car.Tick(1 / 144.0, rev, steer);
+
+		circle.setPosition(car.GetPosX(), car.GetPosY());
+
+		window.draw(circle);
+		window.display();
 	}
 
 	return 0;
