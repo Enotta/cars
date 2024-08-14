@@ -5,8 +5,10 @@
 #include <map>
 #include <time.h>
 #include <iostream>
+#include "SFML/Graphics.hpp"
 
 using namespace std;
+using namespace sf;
 
 #pragma once
 class Track
@@ -72,5 +74,6 @@ public:
 	bool whereOut(double x1, double y1, double x2, double y2, double& xOut, double& yOut);
 
 	void print(); // Console output
+	void draw(RenderWindow& window);
 };
 

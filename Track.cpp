@@ -239,6 +239,30 @@ void Track::print() {
 	}
 }
 
+void Track::draw(RenderWindow& window) {
+	string name = "./sprites/_.png";
+	RectangleShape rec;
+	rec.setFillColor(Color::Color(34, 177, 76, 255));
+	rec.setSize(Vector2f(800, 800));
+	rec.setPosition(0, 0);
+	window.draw(rec);
+
+	for (int i = 0; i < 20; ++i) {
+		for (int j = 0; j < 20; ++j) {
+			name[10] = grid[i][j];
+			if (grid[i][j] != '0') {
+				sf::Texture texture;
+				if (texture.loadFromFile(name)) {
+					Sprite sprite;
+					sprite.setPosition(40*j, 40*i);
+					sprite.setTexture(texture);
+					window.draw(sprite);
+				}
+			}
+		}
+	}
+}
+
 bool Track::isOnTrack(double x, double y) {
 	return true;
 }
