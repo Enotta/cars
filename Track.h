@@ -66,7 +66,7 @@ private:
 	void createPath(int* point1, int* point2);
 
 public:
-	Track(int length);
+	Track(int length); // Constructor
 
 	bool isOnTrack(double x, double y);
 	bool whereOut(double x1, double y1, double x2, double y2, double& xOut, double& yOut);
