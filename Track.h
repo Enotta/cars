@@ -71,6 +71,6 @@ public:
 	bool isOnTrack(double x, double y);
 	bool whereOut(double x1, double y1, double x2, double y2, double& xOut, double& yOut);
 
-	void print();
+	void print(); // Console output
 };
 
