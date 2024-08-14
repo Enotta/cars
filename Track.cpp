@@ -90,18 +90,12 @@ void Track::createPath(int* p1, int* p2) {
 		}
 	}
 
-	gridCopy[corner1[1]][corner1[0]] = 'a';
-	gridCopy[corner2[1]][corner2[0]] = 'b';
-	gridCopy[corner3[1]][corner3[0]] = 'c';
-	gridCopy[corner4[1]][corner4[0]] = 'd';
-
 	char startChar = gridCopy[p1[1]][p1[0]];
 	char endChar = gridCopy[p2[1]][p2[0]];
+
+	// Прокладка шаблона маршрута
 	int* startPos = new int [2] {p1[0]+forward.at(startChar)[0], p1[1]+forward.at(startChar)[1]};
 	int* endPos = new int [2] {p2[0]+backward.at(endChar)[0], p2[1]+backward.at(endChar)[1]};
-
-	int horizontalDiv = abs(startPos[0] - endPos[0]);
-	int verticalDiv = abs(startPos[1] - endPos[1]);
 
 	random_device dev;
 	mt19937 rng(dev());
@@ -132,6 +126,38 @@ void Track::createPath(int* p1, int* p2) {
 		}
 	}
 	gridCopy[startPos[1]][startPos[0]] = 'z';
+
+	// Прокладка маршрута
+	startPos[0] = p1[0];
+	startPos[1] = p1[1];
+
+	int* priority1 = new int[2] {0, 0};
+	int* priority2 = new int[2] {0, 0};
+	int* priority3 = new int[2] {0, 0};
+
+	switch (gridCopy[startPos[1]][startPos[0]])
+	{
+	case 'a':
+		priority1[1] = -1;
+		priority2[0] = 1;
+		priority3[1] = 1;
+		break;
+	case 'b':
+		priority1[0] = 1;
+		priority2[1] = 1;
+		priority3[0] = -1;
+		break;
+	case 'c':
+		priority1[1] = -1;
+		priority2[0] = 1;
+		priority3[1] = 1;
+		break;
+	case 'd':
+		priority1[1] = -1;
+		priority2[0] = 1;
+		priority3[1] = 1;
+		break;
+	}
 
 	// Переносим значения из копии на карту
 	for (int i = 0; i < 20; ++i) {

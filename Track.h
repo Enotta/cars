@@ -27,8 +27,8 @@ private:
 								{ 'f', vector<char> {'g', 'j', 'r'}},
 								{ 'g', vector<char> {'h', 's', 'o'}},
 								{ 'h', vector<char> {'e', 't', 'p'}},
-								{ 'i', vector<char> {'b', 'f', 'm', 'q'}},
-								{ 'j', vector<char> {'c', 'g', 'n', 'r'}},
+								{ 'i', vector<char> {'b', 'f', 'm', 'q', 'i'}},
+								{ 'j', vector<char> {'c', 'g', 'n', 'r', 'j'}},
 								{ 'k', vector<char> {'n', 'j', 'c'}},
 								{ 'l', vector<char> {'d', 's', 'k'}},
 								{ 'm', vector<char> {'a', 'l', 't'}},
@@ -37,8 +37,8 @@ private:
 								{ 'p', vector<char> {'h', 's', 'o'}},
 								{ 'q', vector<char> {'e', 't', 'p'}},
 								{ 'r', vector<char> {'i', 'f', 'q'}},
-								{ 's', vector<char> {'d', 'h', 'o', 'k'}},
-								{ 't', vector<char> {'a', 'e', 'l', 'p'}}};
+								{ 's', vector<char> {'d', 'h', 'o', 'k', 's'}},
+								{ 't', vector<char> {'a', 'e', 'l', 'p', 't'}} };
 
 	const map<char, int*> forward{ { 'a', new int [2] {1, 0}},
 								{ 'b', new int [2] {0, 1} },
