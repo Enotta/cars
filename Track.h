@@ -19,27 +19,7 @@ private:
 	int* corner3;
 	int* corner4;
 
-	const map<char, vector<char>> fit{ { 'a', vector<char> {'b', 'i', 'm'}},
-								{ 'b', vector<char> {'c', 'j', 'n'}},
-								{ 'c', vector<char> {'d', 's', 'k'}},
-								{ 'd', vector<char> {'a', 'l', 't'}},
-								{ 'e', vector<char> {'i', 'f', 'q'}},
-								{ 'f', vector<char> {'g', 'j', 'r'}},
-								{ 'g', vector<char> {'h', 's', 'o'}},
-								{ 'h', vector<char> {'e', 't', 'p'}},
-								{ 'i', vector<char> {'b', 'f', 'm', 'q'}},
-								{ 'j', vector<char> {'c', 'g', 'n', 'r'}},
-								{ 'k', vector<char> {'n', 'j', 'c'}},
-								{ 'l', vector<char> {'d', 's', 'k'}},
-								{ 'm', vector<char> {'a', 'l', 't'}},
-								{ 'n', vector<char> {'b', 'i', 'm'}},
-								{ 'o', vector<char> {'g', 'j', 'r'}},
-								{ 'p', vector<char> {'h', 's', 'o'}},
-								{ 'q', vector<char> {'e', 't', 'p'}},
-								{ 'r', vector<char> {'i', 'f', 'q'}},
-								{ 's', vector<char> {'d', 'h', 'o', 'k'}},
-								{ 't', vector<char> {'a', 'e', 'l', 'p'}}};
-
+	// Next cell bias from current
 	const map<char, int*> forward{ { 'a', new int [2] {1, 0}},
 								{ 'b', new int [2] {0, 1} },
 								{ 'c', new int [2] {-1, 0} },
@@ -61,6 +41,7 @@ private:
 								{ 's', new int [2] {-1, 0} },
 								{ 't', new int [2] {0, -1} } };
 
+	// Previous cell bias from current
 	const map<char, int*> backward{ { 'a', new int [2] {0, 1}},
 								{ 'b', new int [2] {-1, 0} },
 								{ 'c', new int [2] {0, -1} },
@@ -78,7 +59,7 @@ private:
 								{ 'o', new int [2] {1, 0} },
 								{ 'p', new int [2] {0, 1} },
 								{ 'q', new int [2] {-1, 0} },
-								{ 'r', new int [2] {-1, 0} },
+								{ 'r', new int [2] {0, -1} },
 								{ 's', new int [2] {1, 0} },
 								{ 't', new int [2] {0, 1} } };
 
