@@ -3,7 +3,9 @@
 Track::Track(int length) {
 	if (length > 2 || length < 0) length = 0;
 
-	srand(time(0));
+	random_device dev;
+	mt19937 rng(dev());
+	uniform_int_distribution<mt19937::result_type> dist10(0, 9);
 
 	grid = new char* [20];
 	for (int i = 0; i < 20; ++i) {
@@ -16,8 +18,8 @@ Track::Track(int length) {
 	// First corner set up
 	corner1 = new int[2];
 	while (true) {
-		int x = rand() / ((RAND_MAX + 1u) / 10);
-		int y = rand() / ((RAND_MAX + 1u) / 10);
+		int x = dist10(rng);
+		int y = dist10(rng);
 
 		if ((x >= length*2 && x < 2+length*2 && y <= 8 && y >= 2*length) || (x <= 8 && x >= length*2 && y >= length*2 && y < 2+length*2)) {
 			corner1[0] = x;
@@ -30,8 +32,8 @@ Track::Track(int length) {
 	// Second corner set up
 	corner2 = new int[2];
 	while (true) {
-		int x = rand() / ((RAND_MAX + 1u) / 10) + 10;
-		int y = rand() / ((RAND_MAX + 1u) / 10);
+		int x = dist10(rng) + 10;
+		int y = dist10(rng);
 
 		if ((x >= 11 && x <= 19-length*2 && y >= length*2 && y < 2+length*2) || (x <= 19-length*2 && x > 17-length*2 && y <= 8 && y >= length*2)) {
 			corner2[0] = x;
@@ -44,8 +46,8 @@ Track::Track(int length) {
 	// Third corner set up
 	corner3 = new int[2];
 	while (true) {
-		int x = rand() / ((RAND_MAX + 1u) / 10) + 10;
-		int y = rand() / ((RAND_MAX + 1u) / 10) + 10;
+		int x = dist10(rng) + 10;
+		int y = dist10(rng) + 10;
 
 		if ((x <= 19-length*2 && x > 17-length*2 && y >= 11 && y <= 19-length*2) || (x >= 11 && x <= 19-length*2 && y <= 19-length*2 && y > 17-length*2)) {
 			corner3[0] = x;
@@ -58,8 +60,8 @@ Track::Track(int length) {
 	// Fourth corner set up
 	corner4 = new int[2];
 	while (true) {
-		int x = rand() / ((RAND_MAX + 1u) / 10);
-		int y = rand() / ((RAND_MAX + 1u) / 10) + 10;
+		int x = dist10(rng);
+		int y = dist10(rng) + 10;
 
 		if ((x <= 8 && x >= length*2 && y <= 19-length*2 && y > 17-length*2) || (x >= length*2 && x < 2+length*2 && y >= 11 && y <= 19-length*2)) {
 			corner4[0] = x;
@@ -76,8 +78,6 @@ Track::Track(int length) {
 }
 
 void Track::createPath(int* p1, int* p2) {
-	srand(time(0));
-
 	// Create map copy to work with
 	char** gridCopy = new char* [20];
 	for (int i = 0; i < 20; ++i) {
