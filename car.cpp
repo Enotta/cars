@@ -21,7 +21,7 @@ void Car::SetTrack(Track* map)
 
 void Car::Tick(double secs) 
 {
-	double drot = wheelRot * vel / 10 * secs;
+	double drot = wheelRot * vel / 10 * secs / (vel * vel / 5000 + 1);
 	rot += drot;
 	vel *= cos(drot);
 	double velsec = vel * secs;
@@ -43,7 +43,7 @@ void Car::Tick(double secs, double rev, double steer)
 		sped *= 0.25;
 	}
 
-	vel += secs * (rev * (NextStep-abs(vel)) * sped - 5);
-	wheelRot += (steer*(0.7-abs(wheelRot)) - wheelRot*0.1) * secs;
+	vel += secs * (rev * (NextStep-abs(vel)) * sped - 0.5 * vel);
+	wheelRot = steer;
 	Tick(secs);
 }
