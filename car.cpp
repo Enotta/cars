@@ -1,5 +1,56 @@
 #include "car.h"
 
-Car::Car() {
+Car::Car() {};
 
+Car::Car(double X, double Y, double Rotation, double Velocity) : x(X), y(Y), rot(Rotation), vel(Velocity) {}
+
+void Car::operator=(const Car& other) {
+	this->x = other.x;
+	this->y = other.y;
+	this->vel = other.vel;
+	this->rot = other.rot;
+}
+
+void Car::setCars(vector<Car*>* others)
+{
+	if (cars)
+	{
+		cars->erase(find(cars->begin(), cars->end(), this));
+	}
+	cars = others;
+	cars->push_back(this);
+}
+
+void Car::setTrack(Track* map)
+{
+	track = map;
+}
+
+void Car::Tick(double secs)
+{
+	double drot = wheelRot * vel / 10 * secs / (vel * vel / 5000 + 1);
+	rot += drot;
+	vel *= cos(drot);
+	double velsec = vel * secs;
+	x += cos(rot) * velsec;
+	y += sin(rot) * velsec;
+}
+
+void Car::Tick(double secs, double rev, double steer)
+{
+	double NextStep = 100; double sped = speed;
+	if (vel > 90 || vel < -90)
+	{
+		NextStep *= 2;
+		sped *= 0.25;
+	}
+	if (vel > 190 || vel < -190)
+	{
+		NextStep *= 2;
+		sped *= 0.25;
+	}
+
+	vel += secs * (rev * (NextStep - abs(vel)) * sped - 0.5 * vel);
+	wheelRot = steer;
+	Tick(secs);
 }

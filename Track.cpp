@@ -1,5 +1,7 @@
 #include "Track.h"
 
+Track::Track() {}
+
 Track::Track(int length) {
 	if (length > 2 || length < 0) length = 0;
 
@@ -229,6 +231,40 @@ void Track::createPath(int* p1, int* p2) {
 	delete[] endPos;
 }
 
+void Track::operator=(const Track& other) {
+	this->corner1 = new int[2] {};
+	this->corner2 = new int[2] {};
+	this->corner3 = new int[2] {};
+	this->corner4 = new int[2] {};
+
+	this->corner1[0] = other.corner1[0];
+	this->corner1[1] = other.corner1[1];
+	this->corner2[0] = other.corner2[0];
+	this->corner2[1] = other.corner2[1];
+	this->corner3[0] = other.corner3[0];
+	this->corner3[1] = other.corner3[1];
+	this->corner4[0] = other.corner4[0];
+	this->corner4[1] = other.corner4[1];
+
+	this->grid = new char* [20];
+	for (int i = 0; i < 20; ++i) {
+		this->grid[i] = new char[20];
+		for (int j = 0; j < 20; ++j) {
+			this->grid[i][j] = other.grid[i][j];
+		}
+	}
+
+	delete[] other.grid;
+	delete[] other.corner1;
+	delete[] other.corner2;
+	delete[] other.corner3;
+	delete[] other.corner4;
+}
+
+vector<int> Track::getStart() {
+	return vector<int>{corner1[0], corner1[1]};
+}
+
 void Track::print() {
 	for (int i = 0; i < 20; ++i) {
 		for (int j = 0; j < 20; ++j) {
@@ -241,11 +277,10 @@ void Track::print() {
 
 void Track::draw(RenderWindow& window) {
 	string name = "./sprites/_.png";
-	RectangleShape rec;
-	rec.setFillColor(Color::Color(34, 177, 76, 255));
-	rec.setSize(Vector2f(800, 800));
-	rec.setPosition(0, 0);
-	window.draw(rec);
+	RectangleShape background = RectangleShape(Vector2f(1600, 1600));
+	background.setPosition(Vector2f(-400, -400));
+	background.setFillColor(Color::Color(34, 177, 76, 255));
+	window.draw(background);
 
 	for (int i = 0; i < 20; ++i) {
 		for (int j = 0; j < 20; ++j) {
