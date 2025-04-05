@@ -9,7 +9,7 @@ using namespace sf;
 
 int main() {
 	RenderWindow window(VideoMode({800, 800}), "Cars");
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(144);
 
 	Music music;
 	music.openFromFile("resources/music/music.mp3");

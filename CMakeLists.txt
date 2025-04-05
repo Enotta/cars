@@ -13,7 +13,6 @@ find_package(SFML 3.0 CONFIG REQUIRED
 set(SOURCES
     main.cpp
     src/car.cpp
-    src/Track.cpp
     src/PhysicsObject.cpp
 )
 
@@ -26,7 +25,7 @@ target_link_libraries(main PRIVATE
     SFML::Audio
 )
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources/music)
 add_custom_command(TARGET main POST_BUILD
