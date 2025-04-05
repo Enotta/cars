@@ -77,6 +77,38 @@ Track::Track(int length) {
 	createPath(corner4, corner1);
 }
 
+Track::~Track() {
+	for (int i = 20; i < 20; ++i) {
+		delete[] grid[i];
+	}
+
+	delete[] grid;
+	delete[] corner1;
+	delete[] corner2;
+	delete[] corner3;
+	delete[] corner4;
+}
+
+Track Track::operator=(const Track &other) {
+	Track result(0);
+	for (int i = 0; i < 20; ++i) {
+		for (int j = 0; j < 20; ++j) {
+			result.grid[i][j] = other.grid[i][j];
+		}
+	}
+
+	result.corner1[0] = other.corner1[0];
+	result.corner1[1] = other.corner1[1];
+	result.corner2[0] = other.corner1[0];
+	result.corner2[1] = other.corner1[1];
+	result.corner3[0] = other.corner1[0];
+	result.corner3[1] = other.corner1[1];
+	result.corner4[0] = other.corner1[0];
+	result.corner4[1] = other.corner1[1];
+
+	return result;
+}
+
 void Track::createPath(int* p1, int* p2) {
 	// Create map copy to work with
 	char** gridCopy = new char* [20];
@@ -240,22 +272,21 @@ void Track::print() {
 }
 
 void Track::draw(RenderWindow& window) {
-	string name = "./sprites/_.png";
+	string name = "./resources/sprites/_.png";
 	RectangleShape rec;
 	rec.setFillColor(Color::Color(34, 177, 76, 255));
 	rec.setSize(Vector2f(800, 800));
-	rec.setPosition(0, 0);
+	rec.setPosition(Vector2f({0 ,0}));
 	window.draw(rec);
 
 	for (int i = 0; i < 20; ++i) {
 		for (int j = 0; j < 20; ++j) {
-			name[10] = grid[i][j];
+			name[20] = grid[i][j];
 			if (grid[i][j] != '0') {
 				sf::Texture texture;
 				if (texture.loadFromFile(name)) {
-					Sprite sprite;
-					sprite.setPosition(40*j, 40*i);
-					sprite.setTexture(texture);
+					Sprite sprite(texture);
+					sprite.setPosition(Vector2f({40.f*j, 40.f*i}));
 					window.draw(sprite);
 				}
 			}

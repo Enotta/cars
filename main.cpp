@@ -22,6 +22,8 @@ int main() {
 
 	CircleShape circle(5);
 
+	Track track(0);
+
 	while (window.isOpen())
 	{
 		window.clear();
@@ -34,6 +36,15 @@ int main() {
 
 		rev = 0;
 		steer = 0;
+
+		if (Keyboard::isKeyPressed(Keyboard::Key::Num0)) {
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::Key::Num1)) {
+			track = Track(1);
+		}
+		else if (Keyboard::isKeyPressed(Keyboard::Key::Num2)) {
+			track = Track(2);
+		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Key::W))
 		{
@@ -56,6 +67,7 @@ int main() {
 
 		circle.setPosition({car.GetPosX(), car.GetPosY()});
 
+		track.draw(window);
 		window.draw(circle);
 		window.display();
 	}

@@ -13,6 +13,7 @@ find_package(SFML 3.0 CONFIG REQUIRED
 set(SOURCES
     main.cpp
     src/car.cpp
+    src/Track.cpp
     src/PhysicsObject.cpp
 )
 
